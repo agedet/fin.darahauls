@@ -60,18 +60,18 @@ const Navbar = () => {
                                     </a>
                                 </Link>
                             </li>
-                            <li >
+                            {/* <li >
                                 <Link href='/blog' legacyBehavior>
                                     <a target='_blank'>
                                         Blog
                                     </a>
                                 </Link>
-                            </li>
+                            </li> */}
                         </ul>
                        
                         <ul className='flex justify-center items-center tracking-[0.75px] font-medium gap-10'>
                             <li className='capitalize'>
-                                <Link href='/' legacyBehavior>
+                                <Link href='/login' legacyBehavior>
                                 <a         
                                         className='nav-cta-nude font-inter rounded-[4px] border px-[22px] py-[13px] font-medium text-[14px] text-white'
                                     >
@@ -81,7 +81,7 @@ const Navbar = () => {
                             </li>
 
                             <li>
-                                <Link href='#contact' legacyBehavior>
+                                <Link href='/create-account' legacyBehavior>
                                     <a         
                                         className='nav-cta font-inter rounded-[4px] bg-prinary px-[22px] py-[13px] font-medium text-[14px] text-white'
                                     >
