@@ -154,7 +154,7 @@ const Navbar = () => {
                                         </Link>
                                     </li>
                                     
-                                    <li 
+                                    {/* <li 
                                         onClick={closeMobileClicked}
                                     >
                                         <Link href='/blog' legacyBehavior>
@@ -162,7 +162,7 @@ const Navbar = () => {
                                                 Blog
                                             </a>
                                         </Link>
-                                    </li>
+                                    </li> */}
                                 </ul>
 
                                 <ul className='grid gap-2'>
@@ -170,7 +170,7 @@ const Navbar = () => {
                                         className='w-full'
                                         onClick={closeMobileClicked}
                                     >
-                                        <Link href='/register' legacyBehavior>
+                                        <Link href='/login' legacyBehavior>
                                             <a         
                                                 className='nav-cta-nude w-full font-inter rounded-[4px] border border-shade px-[22px] py-[13px] font-medium text-[14px] text-white'
                                             >
@@ -182,7 +182,7 @@ const Navbar = () => {
                                     <li
                                         onClick={closeMobileClicked}
                                     >
-                                        <Link href='/signup' legacyBehavior>
+                                        <Link href='/create-account' legacyBehavior>
                                             <a 
                                                 target='_blank'
                                                 className='nav-cta font-inter rounded-[4px] bg-primary px-[22px] py-[13px] font-medium text-[14px] text-white'

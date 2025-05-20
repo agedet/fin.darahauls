@@ -14,7 +14,7 @@ function HeroScreen() {
                         Book a Ride
                     </a>
 
-                    <a href="/driver/login" className="bg-white text-primary px-[22px] py-[13px] rounded-[4px] text-[14px]">
+                    <a href="/login" className="bg-white text-primary px-[22px] py-[13px] rounded-[4px] text-[14px]">
                         Login
                     </a>
                 </div>
