@@ -20,7 +20,7 @@ export default function RootLayout({
         </div>
       </div>
 
-      <div className="w-full flex justify-center items-center lg:w-1/2">
+      <div className="w-full flex justify-center items-center px-[20px] lg:w-1/2">
         {children}
         <Toaster richColors position="top-left" />
       </div>
