@@ -54,6 +54,15 @@ function page() {
             type="submit" 
             className="w-full mt-4 py-2 px-4 bg-primary text-dark font-semibold rounded-md hover:bg-primary/50"
           >Create Account</Button>
+
+          <div className="mt-4 text-center">
+            <p className="text-sm text-gray-600">
+              Already have an account?{' '}
+              <a href="/login" className="text-primary hover:underline">
+                Login
+              </a>
+            </p>
+          </div>
         </form>
       </Card>
     </motion.section>

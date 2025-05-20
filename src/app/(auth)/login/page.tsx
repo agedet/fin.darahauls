@@ -41,6 +41,16 @@ function page() {
           <Button type="submit" className="w-full mt-4 py-2 px-4 bg-primary text-dark font-semibold rounded-md hover:bg-primary/50">
             Login
           </Button>
+
+          <div className="mt-6 text-center">
+            <p className="text-sm text-gray-600">
+              Don&apos;t have an account?{' '}
+              <a href="/create-account" className=" text-primary hover:underline">Create one</a>
+            </p>
+            <p className="mt-4 text-sm text-gray-600">
+              <a href="/reset-password" className="text-red-500 hover:underline">Forgot Password?</a>
+            </p>
+          </div>
         </form>
       </Card>
     </motion.section>
