@@ -17,7 +17,7 @@ function page() {
       }}
     >
       <Card className="flex flex-col items-center justify-center w-full py-[40px] px-[40px] bg-secondary">
-        <h1 className="text-4xl font-bold mb-8">Login</h1>
+        <h1 className="text-3xl font-bold mb-8">Login</h1>
 
         <form className="w-full max-w-sm">
           <div className="mb-4">
