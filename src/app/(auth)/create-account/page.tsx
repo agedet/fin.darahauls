@@ -19,20 +19,21 @@ function page() {
       <Card className="flex flex-col items-center justify-center w-full py-[40px] px-[40px] bg-secondary">
         <h1 className="text-3xl font-bold mb-8">Create Account</h1>
 
-        <form className="w-full max-w-sm">
+        <form className="w-full max-w-md">
           <div className="mb-4">
             <Label 
-              htmlFor="username" 
+              htmlFor="fullName" 
               className="block text-sm font-medium text-gray-700"
             >
-              Username
+              Full Name
             </Label>
             <Input 
               type="text" 
-              id="username" 
+              id="fullName" 
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none" 
             />
           </div>
+
           <div className="mb-4">
             <Label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</Label>
             <Input 
@@ -41,6 +42,7 @@ function page() {
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none" 
             />
           </div>
+          
           <div className="mb-4">
             <Label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</Label>
             <Input 
