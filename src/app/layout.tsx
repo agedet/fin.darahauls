@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
 import "@/app/globals.css";
 import { Toaster } from "sonner";
+import { SessionProvider } from "next-auth/react";
+import { AuthProvider } from "@/context/AuthContext";
+import { NextAuthSessionProvider } from "@/context/next-auth-provider";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -30,8 +33,12 @@ export default function RootLayout({
       <body
         className={`${poppins.variable} ${inter.variable} antialiased`}
       >
-        {children}
-        <Toaster richColors position="top-left" />
+        <NextAuthSessionProvider>
+          <AuthProvider>
+            {children}
+          </AuthProvider>
+        </NextAuthSessionProvider>
+        <Toaster richColors position="top-right" />
       </body>
     </html>
   );

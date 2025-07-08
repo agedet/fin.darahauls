@@ -2,10 +2,8 @@
 
 import React from 'react';
 import { motion } from "framer-motion";
-import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import LoginForm from '@/components/forms/login/loginForm';
 
 function page() {
   return (
@@ -16,10 +14,44 @@ function page() {
         transition: { delay: 0.4, duration: 0.3, ease: "easeIn" },
       }}
     >
-      <Card className="flex flex-col items-center justify-center w-full py-[40px] px-[40px] bg-secondary">
-        <h1 className="text-3xl font-bold mb-8">Login</h1>
+      <Card className="w-full max-w-md bg-secondary shadow-lg">
+        <CardHeader className='space-y-1'>
+          <div className='flex justify-center mb-4'>
+        
+          </div>
+        
+          <CardTitle className='text-2xl font-bold text-center'>
+            Login
+          </CardTitle>
 
-        <form className="w-full max-w-sm">
+          <CardDescription className='text-center'>
+            Enter your email and password to sign in
+          </CardDescription>
+        
+          {/* {error &&
+            <p className='text-red-500 text-center mb-4'>
+              {error}
+            </p>
+          } */}
+        </CardHeader>
+
+        <CardContent>
+          <LoginForm />
+        </CardContent>
+
+        <CardFooter>
+          <div className="mt-4 text-center">
+            <p className="text-sm text-gray-600">
+              Don&apos;t have an account?{' '}
+              <a href="/create-account" className=" text-primary hover:underline">Create one</a>
+            </p>
+            <p className="mt-4 text-sm text-gray-600">
+              <a href="/reset-password" className="text-red-500 hover:underline">Forgot Password?</a>
+            </p>
+          </div>
+        </CardFooter>
+
+        {/* <form className="w-full max-w-sm">
           <div className="mb-4">
             <Label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</Label>
             <Input 
@@ -51,7 +83,7 @@ function page() {
               <a href="/reset-password" className="text-red-500 hover:underline">Forgot Password?</a>
             </p>
           </div>
-        </form>
+        </form> */}
       </Card>
     </motion.section>
   )

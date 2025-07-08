@@ -23,26 +23,45 @@ const profileSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        dob: {
+        dateOfBirth: {
             type: String,
             required: true,
         },
+        gender: { 
+            type: String, 
+            enum: ["Male", "Female"], 
+            required: true, 
+        },
         country: {
             type: String,
+            required: true,
+        },
+        state: { 
+            type: String, 
+            required: true 
+        },
+        role: {
+            type: String,
+            enum: ["user", "rider", "accounts", "manager", "admin"],
+            default: "user",
             required: true,
         },
         emailVerified: { 
             type: Boolean, 
             default: false 
         },
-        userRole: {
-            type: String,
-            enum: ["user", "rider", "manager", "admin"],
-            default: "user",
+        emailVerificationToken: { 
+            type: String 
         },
-        verificationToken: String,
-        resetToken: String,
-        resetTokenExpiry: Date,
+        emailVerificationTokenExpires: { 
+            type: Date 
+        },
+        passwordResetToken: { 
+            type: String 
+        },
+        passwordResetTokenExpires: { 
+            type: Date 
+        },
     },
     { timestamps: true }
 );

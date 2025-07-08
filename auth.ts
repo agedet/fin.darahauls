@@ -1,6 +1,8 @@
 import connectDB  from "@/lib/db";
 import NextAuth from "next-auth";
 import { Account, User as AuthUser } from "next-auth";
+// import { User } from "./types/next-auth"; // Import the User type
+
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import Profile from "@/app/api/models/UserModel";
@@ -40,9 +42,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                     
                         if (!isPasswordValid) {
                             throw new Error("Invalid password");
-                        } else {
-                            return user;
                         }
+
+                        return user;
                     }
 
                     console.log("User found:", user);
@@ -59,26 +61,50 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         strategy: "jwt",
         maxAge: 30 * 24 * 60 * 60, // 30 days
     },
+    jwt: {
+        maxAge: 30 * 24 * 60 * 60, // 30 days
+    },
     callbacks: {
-        async signIn({ user, account}: { 
-                user: AuthUser; 
+        async signIn({ user, account }: { 
+                user: AuthUser | any; 
                 account?: Account | null;
+                profile?: any;
+                email?: { verificationRequest?: boolean };
                 credentials?: Record<string, any>;
             }
         ) {
+            // If using credentials, ensure email is verified (Date or boolean)
             if (account?.provider === "credentials") {
-                return true;
+                // Accept both boolean and Date types for emailVerified
+                if (
+                    typeof user.emailVerified === "boolean"
+                        ? user.emailVerified
+                        : !!user.emailVerified // Date or null
+                ) {
+                    return true;
+                }
+                return false;
             }
 
             return false;
         },
 
-        async jwt({ token, user }) {
+        async jwt({ token, user, trigger, session }) {
             if (user) {
                 token.id = user.id;
                 token.email = user.email;
-                // token.userRole = user?.role;
+                token.role = user.role;
+                token.emailVerified = typeof user.emailVerified === "boolean"
+                    ? user.emailVerified
+                    : user.emailVerified
+                        ? true
+                        : undefined;
             }
+
+            if (trigger === "update" && session?.emailVerified !== undefined ) {
+                token.emailVerified = session.emailVerified;
+            }
+
             return token;
         },
 
@@ -86,13 +112,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             if (token) {
                 session.user.id = token.id;
                 session.user.email = token.email;
-                session.user.userRole = token.userRole;
+                session.user.role = token.role;
+                session.user.role = token.emailVerified;
             }
+
             return session;
         },
     },
     pages: {
-        signIn: "/auth/signin",
-        error: "/auth/error",
+        signIn: "/login",
+        error: "/error",
+        verifyRequest: "/verify",
     },
 })
+

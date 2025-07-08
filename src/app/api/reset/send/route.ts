@@ -1,7 +1,7 @@
 import connectDB from "@/lib/db";
 import Profile from "../../models/UserModel";
-import { generateToken } from "@/lib/token";
 import { sendPasswordResetEmail } from "@/lib/mail";
+import { generateVerificationToken } from "@/lib/token";
 
 
 export async function POST(request: Request) {
@@ -19,7 +19,7 @@ export async function POST(request: Request) {
         return new Response("User not found", { status: 404 });
     }
 
-    const token = generateToken();
+    const token = await generateVerificationToken(user.email);
 
     user.resetToken = token;
     user.resetTokenExpiry = new Date(Date.now() + 3600000); // Token valid for 1 hour

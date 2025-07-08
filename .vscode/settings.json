@@ -1,5 +1,5 @@
 {
     "editor.fontSize": 12,
     "files.autoSave": "afterDelay",
-    "editor.wordWrap": "on"
+    "editor.wordWrap": "off"
 }

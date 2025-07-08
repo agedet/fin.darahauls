@@ -7,53 +7,53 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 /**
- * RiderDashboardPage
- * Displays content specific to riders.
- * It performs a server-side check for the 'rider' role.
+ * AccountsDashboardPage
+ * Displays content specific to accounts personnel.
+ * It performs a server-side check for the 'accounts' role.
  */
-export default async function RiderDashboardPage() {
+export default async function AccountsDashboardPage() {
   const session = await auth();
 
   // Server-side role check
-  if (!session || !session.user || session.user.role !== "rider") {
-    redirect("/auth/login"); // Redirect to login if not rider
+  if (!session || !session.user || session.user.role !== "accounts") {
+    redirect("/auth/login"); // Redirect to login if not accounts
   }
 
   return (
     <div className="space-y-6">
       <h2 className="text-4xl font-extrabold text-gray-900 dark:text-gray-100">
-        Rider Dashboard
+        Accounts Dashboard
       </h2>
       <p className="text-lg text-gray-700 dark:text-gray-300">
-        Hello, <span className="font-semibold">{session.user.firstName || session.user.email}</span>!
-        Here you can manage your deliveries.
+        Welcome, <span className="font-semibold">{session.user.firstName || session.user.email}</span>!
+        Manage financial operations here.
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <Card className="rounded-lg shadow-md">
           <CardHeader>
-            <CardTitle>My Deliveries</CardTitle>
+            <CardTitle>Invoice Management</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-gray-600 dark:text-gray-400">
-              View your assigned and completed deliveries.
+              Create, view, and manage invoices.
             </p>
             <Button className="mt-4 w-full">
-              <Link href="#">View Deliveries</Link>
+              <Link href="#">Manage Invoices</Link>
             </Button>
           </CardContent>
         </Card>
 
         <Card className="rounded-lg shadow-md">
           <CardHeader>
-            <CardTitle>Earnings Report</CardTitle>
+            <CardTitle>Payroll Processing</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-gray-600 dark:text-gray-400">
-              Check your earnings and payment history.
+              Process payroll for all employees.
             </p>
             <Button className="mt-4 w-full">
-              <Link href="#">View Earnings</Link>
+              <Link href="#">Process Payroll</Link>
             </Button>
           </CardContent>
         </Card>

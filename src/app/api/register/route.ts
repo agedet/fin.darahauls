@@ -2,8 +2,8 @@ import connectDB from "@/lib/db";
 import { NextResponse } from "next/server"
 import Profile from "../models/UserModel";
 import bcrypt from "bcryptjs";
-import { generateToken } from "@/lib/token";
 import { sendVerificationEmail } from "@/lib/mail";
+import { generateVerificationToken } from "@/lib/token";
 
 
 export const POST = async (request: any) => {
@@ -21,7 +21,7 @@ export const POST = async (request: any) => {
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const token = generateToken();
+        const token = await generateVerificationToken(email);
 
         const newUser = new Profile({
             firstName,

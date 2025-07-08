@@ -2,10 +2,8 @@
 
 import React from 'react'
 import { motion } from "framer-motion";
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import VerifyForm from '@/components/forms/verify/verifyForm';
 
 function page() {
   return (
@@ -16,10 +14,32 @@ function page() {
             transition: { delay: 0.4, duration: 0.3, ease: 'easeIn'},
         }}
     >
-        <Card className="flex flex-col items-center justify-center w-full py-[40px] px-[40px] bg-secondary">
-            <h1 className="text-3xl font-bold mb-8">Verify Account</h1>
+        <Card className="w-full max-w-md bg-secondary shadow-lg">
+            <CardHeader className='space-y-1'>
+                <div className='flex justify-center mb-4'>
+                
+                </div>
+                
+                <CardTitle className='text-2xl font-bold text-center'>
+                    Verify Account
+                </CardTitle>
+
+                <CardDescription className='text-center'>
+                    Enter your token to verify
+                </CardDescription>
+                
+                {/* {error &&
+                    <p className='text-red-500 text-center mb-4'>
+                    {error}
+                    </p>
+                } */}
+            </CardHeader>
+
+            <CardContent>
+                <VerifyForm />
+            </CardContent>
     
-            <form className="w-full max-w-sm">
+            {/* <form className="w-full max-w-sm">
                 <div className="mb-4">
                     <Label htmlFor="verification-code" className="block text-sm font-medium text-gray-700">Verification Code</Label>
                     <Input 
@@ -35,7 +55,7 @@ function page() {
                 >
                     Verify
                 </Button>
-            </form>
+            </form> */}
         </Card>
     </motion.section>
   )

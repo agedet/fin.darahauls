@@ -2,10 +2,8 @@
 
 import React from 'react'
 import { motion } from "framer-motion";
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import RegistrationForm from '@/components/forms/registration/registrationForm';
 
 function page() {
   return (
@@ -16,10 +14,34 @@ function page() {
         transition: { delay: 0.4, duration: 0.3, ease: "easeIn" },
       }}
     >
-      <Card className="flex flex-col items-center justify-center w-full py-[40px] px-[40px] bg-secondary">
-        <h1 className="text-3xl font-bold mb-8">Create Account</h1>
+      <Card className="w-full max-w-md bg-secondary shadow-xl border rounded-2xl">
+        <CardHeader className='space-y-1'>
+          <div className='flex justify-center mb-4'>
 
-        <form className="w-full max-w-md">
+          </div>
+
+          <CardTitle className='text-2xl font-bold text-center'>
+            Create Account
+          </CardTitle>
+          <CardDescription className='text-center'>
+            Enter your details to create a dara hauls account
+          </CardDescription>
+        </CardHeader>
+
+        <CardContent>
+          <RegistrationForm  />
+        </CardContent>
+
+        <CardFooter>
+          <p className="text-sm text-gray-600 text-center w-full">
+            Already have an account?{' '}
+            <a href="/login" className="text-primary hover:underline font-medium">
+              Login
+            </a>
+          </p>
+        </CardFooter>
+
+        {/* <form className="w-full max-w-md">
           <div className="mb-4">
             <Label 
               htmlFor="fullName" 
@@ -65,7 +87,8 @@ function page() {
               </a>
             </p>
           </div>
-        </form>
+        </form> */}
+
       </Card>
     </motion.section>
   )
