@@ -1,3 +1,5 @@
+'use client';
+
 import connectDB  from "@/lib/db";
 import NextAuth from "next-auth";
 import { Account, User as AuthUser } from "next-auth";
@@ -25,33 +27,36 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                 await connectDB();
 
                 try {
-                    // Check if the user exists and email is verified
+                    // Check if the user exists
                     const user = await Profile.findOne({
                         email: credentials.email
                     });
 
-                    if (!user || !user.emailVerified) {
-                        throw new Error("Invalid email or unverified email");
+                    if (!user) {
+                        throw new Error("CredentialsSignin");
                     }
 
-                    if (user) {
-                        const isPasswordValid = await bcrypt.compare(
-                            credentials.password as string,
-                            user.password as string
-                        );
-                    
-                        if (!isPasswordValid) {
-                            throw new Error("Invalid password");
-                        }
+                    // Check if email is verified
+                    if (!user.emailVerified) {
+                        throw new Error("EmailNotVerified");
+                    }
 
-                        return user;
+                    // Verify password
+                    const isPasswordValid = await bcrypt.compare(
+                        credentials.password as string,
+                        user.password as string
+                    );
+                
+                    if (!isPasswordValid) {
+                        throw new Error("CredentialsSignin");
                     }
 
                     console.log("User found:", user);
+                    return user;
 
                 } catch (error) {
                     console.error("Error during authorization:", error);
-                    throw new Error("Invalid credentials"); 
+                    throw error; 
                 }
             },
         })
@@ -113,7 +118,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                 session.user.id = token.id;
                 session.user.email = token.email;
                 session.user.role = token.role;
-                session.user.role = token.emailVerified;
+                session.user.emailVerified = token.emailVerified;
             }
 
             return session;

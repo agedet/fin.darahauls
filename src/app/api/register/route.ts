@@ -9,7 +9,7 @@ import { generateVerificationToken } from "@/lib/token";
 export const POST = async (request: any) => {
     try {
         const body = await request.json();
-        const { email, password, firstName, lastName, phoneNumber, dob, country } = body;
+        const { email, password, firstName, lastName, phoneNumber, dob, country, gender, state } = body;
 
         await connectDB();
 
@@ -21,8 +21,7 @@ export const POST = async (request: any) => {
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const token = await generateVerificationToken(email);
-
+        // Create the user first
         const newUser = new Profile({
             firstName,
             lastName,
@@ -30,21 +29,40 @@ export const POST = async (request: any) => {
             phoneNumber,
             email,
             password: hashedPassword,
-            dob,
+            dateOfBirth: dob,
             country,
-            userRole: "user", // Default role
-            verificationToken: token,
+            state, 
+            gender: gender.charAt(0).toUpperCase() + gender.slice(1).toLowerCase(),
+            role: "user",
         });
 
-        await newUser.create();
-        await sendVerificationEmail(email, token);
+        await newUser.save();
+
+        // Now generate the verification token after user is created
+        const token = await generateVerificationToken(email);
+        
+        // Try to send verification email, but don't fail if email is not configured
+        try {
+            // Check if email configuration is available
+            if (process.env.EMAIL_SERVER_HOST && process.env.EMAIL_SERVER_USER && process.env.EMAIL_SERVER_PASSWORD) {
+                await sendVerificationEmail(email, token);
+            } else {
+                console.warn("Email configuration not found. Skipping email sending in development mode.");
+                console.log("Verification code for testing:", token);
+            }
+        } catch (emailError) {
+            console.warn("Email sending failed, but user was created successfully:", emailError);
+            console.log("Verification code for testing:", token);
+            // Continue with registration even if email fails
+        }
 
         return NextResponse.json(
-            {message: "Account created. Please check your email to verify your account."},
+            {message: "Account created successfully. Please check your email to verify your account."},
             {status: 200 }
         );
 
     } catch (error) {
+        console.error("Registration error:", error);
         return NextResponse.json(
             { message: typeof error === "object" && error !== null && "message" in error ? (error as { message: string }).message : "An unknown error occurred" },
             { status: 500 }

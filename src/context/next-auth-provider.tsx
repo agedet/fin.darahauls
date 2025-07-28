@@ -1,6 +1,3 @@
-// This component wraps your application with NextAuth's SessionProvider
-// to make the session available to all client components.
-
 "use client"; // This component must be a client component
 
 import { SessionProvider } from "next-auth/react";

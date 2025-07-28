@@ -19,6 +19,10 @@ const profileSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
+        fullname: {
+            type: String,
+            required: true,
+        },
         phoneNumber: {
             type: String,
             required: true,

@@ -13,6 +13,7 @@ interface AuthContextType {
   registerUser: (formData: any) => Promise<void>;
   loginUser: (email: string, password: string) => Promise<void>;
   verifyEmail: (otp: string) => Promise<void>;
+  resendVerification: (email: string) => Promise<void>;
   logout: () => Promise<void>;
   updateSession: (data: Partial<User>) => Promise<void>;
   requestReset: (email: string) => Promise<void>;
@@ -57,8 +58,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     
     try {
       const response = await axios.post("/api/register", formData);
-      if (response.status === 201) {
-        toast.success("Registration successfull! Check your email for a verification code.");
+      if (response.status === 200) {
+        toast.success("Registration successful! Check your email for a verification code.");
         router.push(`/verify?email=${formData.email}`);
       }
     } catch (error) {
@@ -129,7 +130,65 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const verifyEmail = useCallback(async (otp: string) => {
     setLoading(true);
     try {
-      await axios.get(`/api/verify?token=${otp}`);
+      const response = await axios.get(`/api/verify?token=${otp}`);
+      
+      if (response.status === 200) {
+        const { user: verifiedUser } = response.data;
+        
+        // Update the session with verified user data
+        await update({
+          user: {
+            id: verifiedUser.id,
+            email: verifiedUser.email,
+            firstName: verifiedUser.firstName,
+            lastName: verifiedUser.lastName,
+            role: verifiedUser.role,
+            emailVerified: verifiedUser.emailVerified
+          }
+        });
+
+        toast.success("Email verified successfully!");
+        
+        // Redirect based on user role
+        switch (verifiedUser.role) {
+          case "admin":
+            router.push("/dashboard/admin");
+            break;
+          case "rider":
+            router.push("/dashboard/rider");
+            break;
+          case "manager":
+            router.push("/dashboard/manager");
+            break;
+          case "accounts":
+            router.push("/dashboard/accounts");
+            break;
+          default:
+            router.push("/dashboard/rider");
+        }
+      }
+    } catch (error: any) {
+      console.error("Email verification error:", error);
+      const errorMessage = error.response?.data?.message || "Verification failed. Please try again.";
+      toast.error(errorMessage);
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  }, [router, update]);
+
+  const resendVerification = useCallback(async (email: string) => {
+    setLoading(true);
+    try {
+      const response = await axios.post("/api/resend-verification", { email });
+      if (response.status === 200) {
+        toast.success("Verification code resent successfully!");
+      }
+    } catch (error: any) {
+      console.error("Resend verification error:", error);
+      const errorMessage = error.response?.data?.message || "Failed to resend verification code. Please try again.";
+      toast.error(errorMessage);
+      throw error;
     } finally {
       setLoading(false);
     }
@@ -181,7 +240,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, loading, registerUser, loginUser, verifyEmail, logout, requestReset, confirmReset, updateSession }}
+      value={{ user, loading, registerUser, loginUser, verifyEmail, resendVerification, logout, requestReset, confirmReset, updateSession }}
     >
       {children}
     </AuthContext.Provider>

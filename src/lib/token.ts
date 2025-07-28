@@ -7,10 +7,11 @@ import { findUserByEmail, updateUser } from "@/app/api/db/routes"; // Import use
  * In a real application, you might want to store this token in a database
  * along with an expiry date. For this example, it's stored directly on the user object.
  * @param email The user's email address.
- * @returns The generated token.
+ * @returns The generated 6-digit OTP.
  */
 export const generateVerificationToken = async (email: string): Promise<string> => {
-  const token = crypto.randomUUID(); // Generate a unique UUID
+  // Generate a 6-digit OTP
+  const token = Math.floor(100000 + Math.random() * 900000).toString();
 
   // In a real database, you'd save this token and its expiry to a dedicated table
   // or directly on the user record.
@@ -34,7 +35,8 @@ export const generateVerificationToken = async (email: string): Promise<string> 
  * @returns The generated token.
  */
 export const generatePasswordResetToken = async (email: string): Promise<string> => {
-  const token = crypto.randomUUID(); // Generate a unique UUID
+  // Generate a 6-digit OTP
+  const token = Math.floor(100000 + Math.random() * 900000).toString();
 
   // In a real database, you'd save this token and its expiry.
   const user = await findUserByEmail(email);
