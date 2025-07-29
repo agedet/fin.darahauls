@@ -10,7 +10,7 @@ import { User } from "../../types/next-auth"
 interface AuthContextType {
   user: User | null;
   loading: boolean;
-  registerUser: (formData: Record<string, any>) => Promise<void>;
+  registerUser: (formData: Record<string, boolean>) => Promise<void>;
   loginUser: (email: string, password: string) => Promise<void>;
   verifyEmail: (otp: string) => Promise<void>;
   resendVerification: (email: string) => Promise<void>;
@@ -53,7 +53,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [session, status]);
 
-  const registerUser = useCallback(async (formData: Record<string, any>) => {
+  const registerUser = useCallback(async (formData: Record<string, boolean>) => {
     setLoading(true);
     
     try {
