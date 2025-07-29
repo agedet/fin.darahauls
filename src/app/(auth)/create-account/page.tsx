@@ -40,55 +40,6 @@ function page() {
             </a>
           </p>
         </CardFooter>
-
-        {/* <form className="w-full max-w-md">
-          <div className="mb-4">
-            <Label 
-              htmlFor="fullName" 
-              className="block text-sm font-medium text-gray-700"
-            >
-              Full Name
-            </Label>
-            <Input 
-              type="text" 
-              id="fullName" 
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none" 
-            />
-          </div>
-
-          <div className="mb-4">
-            <Label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</Label>
-            <Input 
-              type="email" 
-              id="email" 
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none" 
-            />
-          </div>
-          
-          <div className="mb-4">
-            <Label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</Label>
-            <Input 
-              type="password" 
-              id="password" 
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none" 
-            />
-          </div>
-
-          <Button 
-            type="submit" 
-            className="w-full mt-4 py-2 px-4 bg-primary text-dark font-semibold rounded-md hover:bg-primary/50"
-          >Create Account</Button>
-
-          <div className="mt-4 text-center">
-            <p className="text-sm text-gray-600">
-              Already have an account?{' '}
-              <a href="/login" className="text-primary hover:underline">
-                Login
-              </a>
-            </p>
-          </div>
-        </form> */}
-
       </Card>
     </motion.section>
   )

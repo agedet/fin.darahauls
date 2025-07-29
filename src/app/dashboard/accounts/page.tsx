@@ -6,11 +6,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
-/**
- * AccountsDashboardPage
- * Displays content specific to accounts personnel.
- * It performs a server-side check for the 'accounts' role.
- */
 export default async function AccountsDashboardPage() {
   const session = await auth();
 

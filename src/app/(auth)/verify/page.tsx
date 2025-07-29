@@ -38,24 +38,6 @@ function page() {
             <CardContent>
                 <VerifyForm />
             </CardContent>
-    
-            {/* <form className="w-full max-w-sm">
-                <div className="mb-4">
-                    <Label htmlFor="verification-code" className="block text-sm font-medium text-gray-700">Verification Code</Label>
-                    <Input 
-                        type="text" 
-                        id="verification-code" 
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none" 
-                    />
-                </div>
-        
-                <Button 
-                    type="submit" 
-                    className="w-full mt-4 py-2 px-4 bg-primary text-dark font-semibold rounded-md hover:bg-primary/50"
-                >
-                    Verify
-                </Button>
-            </form> */}
         </Card>
     </motion.section>
   )

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
 import "@/app/globals.css";
 import { Toaster } from "sonner";
-import { SessionProvider } from "next-auth/react";
 import { AuthProvider } from "@/context/AuthContext";
 import { NextAuthSessionProvider } from "@/context/next-auth-provider";
 

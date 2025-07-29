@@ -6,7 +6,7 @@ import { sendVerificationEmail } from "@/lib/mail";
 import { generateVerificationToken } from "@/lib/token";
 
 
-export const POST = async (request: any) => {
+export const POST = async (request: Request) => {
     try {
         const body = await request.json();
         const { email, password, firstName, lastName, phoneNumber, dob, country, gender, state } = body;

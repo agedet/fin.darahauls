@@ -1,10 +1,7 @@
 'use client'
 
 import ResetPasswordForm from '@/components/forms/reset/resetPassword'
-import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 import { motion } from 'framer-motion'
 import React from 'react'
 
@@ -41,27 +38,6 @@ function page() {
         <CardContent>
           <ResetPasswordForm />
         </CardContent>
-
-        {/* <form className="w-full max-w-sm">
-          <div className="mb-4">
-            <Label htmlFor="email" className="block text-sm font-medium text-gray-700">
-              Email
-            </Label>
-
-            <Input
-              type="email"
-              id="email"
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none"
-            />
-          </div>
-
-          <Button
-            type="submit"
-            className="w-full mt-4 py-2 px-4 bg-primary text-dark font-semibold rounded-md hover:bg-primary/50"
-          >
-            Reset Password
-          </Button>
-        </form> */}
       </Card>
     </motion.section>
   )

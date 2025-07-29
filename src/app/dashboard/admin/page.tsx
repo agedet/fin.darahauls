@@ -5,14 +5,9 @@ import { redirect } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import axios from "axios";
-import { toast } from "sonner";
+// import axios from "axios";
+// import { toast } from "sonner";
 
-/**
- * AdminDashboardPage
- * Displays content specific to administrators.
- * It performs a server-side check for the 'admin' role.
- */
 export default async function AdminDashboardPage() {
   const session = await auth();
 
@@ -24,22 +19,22 @@ export default async function AdminDashboardPage() {
   // Example of fetching protected data (client-side in a real app, but showing server component usage)
   // In a real app, this would be a client component using `useAuth` and `axios`
   // to fetch data from `/api/protected` after the user is authenticated.
-  const fetchProtectedData = async () => {
-    try {
-      // This fetch is for demonstration. In a real client component, use axios.
-      const response = await axios.get("/api/protected");
-      const data = await response.data;
-      if (response.status === 200) {
-        toast.success(`Protected data fetched: ${data.message}`);
-        console.log("Protected Data:", data);
-      } else {
-        toast.error(`Failed to fetch protected data: ${data.message}`);
-      }
-    } catch (error) {
-      console.error("Error fetching protected data:", error);
-      toast.error("An error occurred while fetching protected data.");
-    }
-  };
+  // const fetchProtectedData = async () => {
+  //   try {
+  //     // This fetch is for demonstration. In a real client component, use axios.
+  //     const response = await axios.get("/api/protected");
+  //     const data = await response.data;
+  //     if (response.status === 200) {
+  //       toast.success(`Protected data fetched: ${data.message}`);
+  //       console.log("Protected Data:", data);
+  //     } else {
+  //       toast.error(`Failed to fetch protected data: ${data.message}`);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching protected data:", error);
+  //     toast.error("An error occurred while fetching protected data.");
+  //   }
+  // };
 
   return (
     <div className="space-y-6">
@@ -91,18 +86,18 @@ export default async function AdminDashboardPage() {
             {/* This button would typically be in a client component */}
             <Button
               className="mt-4 w-full"
-              onClick={async () => {
-                // This is a client-side interaction, so we need to use a client component
-                // For demonstration, I'm putting the logic here, but for a real app,
-                // you'd extract this into a client component or hook.
-                const response = await fetch("/api/protected");
-                const data = await response.json();
-                if (response.ok) {
-                  toast.success(`Protected data: ${data.message}`);
-                } else {
-                  toast.error(`Access denied: ${data.message}`);
-                }
-              }}
+              // onClick={async () => {
+              //   // This is a client-side interaction, so we need to use a client component
+              //   // For demonstration, I'm putting the logic here, but for a real app,
+              //   // you'd extract this into a client component or hook.
+              //   const response = await fetch("/api/protected");
+              //   const data = await response.json();
+              //   if (response.ok) {
+              //     toast.success(`Protected data: ${data.message}`);
+              //   } else {
+              //     toast.error(`Access denied: ${data.message}`);
+              //   }
+              // }}
             >
               Fetch Protected Data
             </Button>

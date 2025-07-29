@@ -10,7 +10,7 @@ import { User } from "../../types/next-auth"
 interface AuthContextType {
   user: User | null;
   loading: boolean;
-  registerUser: (formData: any) => Promise<void>;
+  registerUser: (formData: Record<string, any>) => Promise<void>;
   loginUser: (email: string, password: string) => Promise<void>;
   verifyEmail: (otp: string) => Promise<void>;
   resendVerification: (email: string) => Promise<void>;
@@ -40,7 +40,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         dateOfBirth: new Date(),
         country: "",
         state: "", 
-        role: (["user", "rider", "accounts", "manager", "admin"] as const).includes(session.user?.role as any)
+        role: (["user", "rider", "accounts", "manager", "admin"] as const).includes(session.user?.role as "user" | "rider" | "accounts" | "manager" | "admin")
           ? session.user?.role as "user" | "rider" | "accounts" | "manager" | "admin"
           : "user", // Default role
         emailVerified: session.user.emailVerified || false,
@@ -53,7 +53,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [session, status]);
 
-  const registerUser = useCallback(async (formData: any) => {
+  const registerUser = useCallback(async (formData: Record<string, any>) => {
     setLoading(true);
     
     try {
@@ -167,9 +167,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             router.push("/dashboard/rider");
         }
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error("Email verification error:", error);
-      const errorMessage = error.response?.data?.message || "Verification failed. Please try again.";
+      let errorMessage = "Verification failed. Please try again.";
+      if (typeof error === "object" && error !== null && "response" in error) {
+        const err = error as { response?: { data?: { message?: string } } };
+        errorMessage = err.response?.data?.message || errorMessage;
+      }
       toast.error(errorMessage);
       throw error;
     } finally {
@@ -184,9 +188,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       if (response.status === 200) {
         toast.success("Verification code resent successfully!");
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error("Resend verification error:", error);
-      const errorMessage = error.response?.data?.message || "Failed to resend verification code. Please try again.";
+      let errorMessage = "Failed to resend verification code. Please try again.";
+      if (typeof error === "object" && error !== null && "response" in error
+      ) {
+        const err = error as { response?: { data?: { message?: string } } };
+        errorMessage = err.response?.data?.message || errorMessage;
+      }
       toast.error(errorMessage);
       throw error;
     } finally {
