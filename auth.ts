@@ -1,10 +1,6 @@
-'use client';
-
 import connectDB  from "@/lib/db";
 import NextAuth from "next-auth";
 import { Account, User as AuthUser } from "next-auth";
-// import { User } from "./types/next-auth"; // Import the User type
-
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import Profile from "@/app/api/models/UserModel";

@@ -16,7 +16,7 @@ export interface FormStep2 {
 
 export interface FormStep3 {
   gender: string;
-  dob: string;
+  dob: Date;
   state: string;
   country: string;
 }
@@ -41,7 +41,7 @@ export const useRegistrationLogic = () => {
 
   const [form3, setForm3] = useState<FormStep3>({
     gender: "",
-    dob: "",
+    dob: new Date(),
     state: "",
     country: "",
   });
@@ -54,7 +54,7 @@ export const useRegistrationLogic = () => {
     setForm2((prev) => ({ ...prev, [field]: value }));
   }, []);
 
-  const handleForm3Change = useCallback((field: keyof FormStep3, value: string) => {
+  const handleForm3Change = useCallback((field: keyof FormStep3, value: string | Date) => {
     setForm3((prev) => ({ ...prev, [field]: value }));
   }, []);
 
@@ -77,7 +77,7 @@ export const useRegistrationLogic = () => {
   const isStep3Valid = useMemo(() => {
     return (
       form3.gender.trim() !== "" &&
-      form3.dob.trim() !== "" &&
+      form3.dob instanceof Date &&
       form3.state.trim() !== "" &&
       form3.country.trim() !== ""
     );
@@ -146,7 +146,7 @@ export const useRegistrationLogic = () => {
     setStep(1);
     setForm1({ firstName: "", lastName: "", email: "", phoneNumber: "" });
     setForm2({ password: "", confirmPassword: "" });
-    setForm3({ gender: "", dob: "", state: "", country: "" });
+    setForm3({ gender: "", dob: new Date(), state: "", country: "" });
     setError("");
   }, []);
 

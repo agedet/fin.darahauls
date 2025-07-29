@@ -5,12 +5,12 @@ import axios from "axios";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { User } from "../../types/next-auth"
+import { User, RegisterFormData } from "../../types/next-auth"
 
 interface AuthContextType {
   user: User | null;
   loading: boolean;
-  registerUser: (formData: Record<string, boolean>) => Promise<void>;
+  registerUser: (formData: RegisterFormData) => Promise<void>;
   loginUser: (email: string, password: string) => Promise<void>;
   verifyEmail: (otp: string) => Promise<void>;
   resendVerification: (email: string) => Promise<void>;
@@ -53,7 +53,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [session, status]);
 
-  const registerUser = useCallback(async (formData: Record<string, boolean>) => {
+  const registerUser = useCallback(async (formData: RegisterFormData) => {
     setLoading(true);
     
     try {

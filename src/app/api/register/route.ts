@@ -21,6 +21,9 @@ export const POST = async (request: Request) => {
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
+        // Convert dob string to Date object
+        const dateOfBirth = new Date(dob);
+
         // Create the user first
         const newUser = new Profile({
             firstName,
@@ -29,7 +32,7 @@ export const POST = async (request: Request) => {
             phoneNumber,
             email,
             password: hashedPassword,
-            dateOfBirth: dob,
+            dateOfBirth,
             country,
             state, 
             gender: gender.charAt(0).toUpperCase() + gender.slice(1).toLowerCase(),

@@ -39,10 +39,6 @@ export type User = {
 };
 
 declare module "next-auth" {
-  interface User {
-    id: string;
-    email: string;
-  }
   interface Session {
     user: {
       id: string;
