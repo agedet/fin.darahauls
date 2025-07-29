@@ -1,7 +1,5 @@
 import nodemailer from "nodemailer";
 
-// Create a Nodemailer transporter using SMTP
-// The configuration details are loaded from environment variables.
 const transporter = nodemailer.createTransport({
   service: "smtp.gmail.com", // Use Gmail as the email service
   // host: process.env.EMAIL_SERVER_HOST,
